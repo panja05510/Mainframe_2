@@ -68,7 +68,7 @@ public class QueueListnerAndResponse {
 		taskExecutor.execute(() -> {
 			try {
 				System.out.println("processing....");
-				Thread.sleep(10000);
+				//Thread.sleep(10000);
 
 				// System.out.println("Reply sent: " + replyMessage);
 

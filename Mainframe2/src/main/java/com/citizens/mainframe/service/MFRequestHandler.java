@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-
 public class MFRequestHandler {
 
 	
@@ -50,7 +49,7 @@ public class MFRequestHandler {
 
 		List<String> hexFields = hexFields();
 
-		String cobolFile = "customer.cpy";
+		String cobolFile = "copybook.cpy";
 
 		
 
