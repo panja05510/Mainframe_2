@@ -49,7 +49,7 @@ public class MFRequestHandler {
 
 		List<String> hexFields = hexFields();
 
-		String cobolFile = "copybook.cpy";
+		String cobolFile = "customer.cpy";
 
 		
 

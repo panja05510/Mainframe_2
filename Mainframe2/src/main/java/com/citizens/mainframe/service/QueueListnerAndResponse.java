@@ -51,8 +51,6 @@ public class QueueListnerAndResponse {
 //		logger.info("Mainframe:Received Message : {}", messageReceivedTime);
 
 			if (receivedMessage != null)
-//			logger.info("MainFrame message received corrID-> : {}", receivedMessage.getJMSCorrelationID());
-//		System.out.println("Message received to Mainframe: "+ebcdicToObject(receivedMessage));
 				System.out.println("Message received to mainframe");
 			// System.out.println("MainFrame message received corrID->" +
 			// receivedMessage.getJMSCorrelationID());
