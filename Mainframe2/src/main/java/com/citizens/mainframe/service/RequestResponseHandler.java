@@ -25,8 +25,7 @@ public class RequestResponseHandler {
 	ObjectMapper objectMapper;
 	
 	@Value("${timeDelay}")
-	private String timeout;
-	private int timeDelay =Integer.parseInt(timeout);
+	private long timeDelay;
 	
 	private String accNumber = "";
 	
