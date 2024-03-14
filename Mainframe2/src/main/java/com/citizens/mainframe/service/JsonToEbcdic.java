@@ -61,31 +61,15 @@ public class JsonToEbcdic {
     }
    
     /************************************
-    * convert request to aminframe format (byte array)
+    * convert request to mainframe format (byte array)
      * @throws InterruptedException
     * **********************************/
    
     public byte[] request2mainframe(String copybook) throws InterruptedException {
-        System.out.println("constcutor called");
+    	System.out.println("parsing cobpbook \"" + copybook + "\"");
         ArrayList<HashMap<String,String>> intermediate_map = copybookToIntermediate(copybook);
-        System.out.println("request2mainframe()--> intermediate_map : "+ intermediate_map);
         byte[] fixedLengthOutput = getFixedLengthOutput(intermediate_map);
-//        System.out.println("byte array is : "+ fixedLengthOutput);
-//        printByteArray(fixedLengthOutput);
-        showbytesToString(fixedLengthOutput);
         return fixedLengthOutput;
-    }
-   
-    public void showbytesToString(byte[] arr) {
-        String asciiData = new String(arr, Charset.forName(EBCDIC_CHARSET));
-        System.out.println("length of response is : "+ arr.length);
-        System.out.println("data from jargon is : "+ asciiData + "/////////////////////////////");
-    }
-   
-    public void printByteArray(byte[] arr) {
-        for(byte i : arr) {
-            System.out.println(i);
-        }
     }
    
     /*************************************************************
@@ -93,46 +77,46 @@ public class JsonToEbcdic {
     *************************************************************/
     public ArrayList<HashMap<String, String>> copybookToIntermediate(String copybookName)
     {
-        System.out.println("copybookToIntermediate() called");
+        //System.out.println("copybookToIntermediate() called");
         try {
             ClassPathResource resource = new ClassPathResource(copybookName);
             InputStream inputStream = resource.getInputStream();
             ICobolIOBuilder iob = JRecordInterface1.COBOL.newIOBuilder(inputStream,copybookName);
             RecordDetail record = iob.getLayout().getRecord(0);
 //            printObjectDetails(record);
-            System.out.println("copybookToIntermediate() --> record : "+record);
+            //System.out.println("copybookToIntermediate() --> record : "+record);
             IItemDetails root = record.getCobolItems().get(0);
-            System.out.println("copybookToIntermediate() --> root : "+root.toString());
+            //System.out.println("copybookToIntermediate() --> root : "+root.toString());
 //            printObjectDetails(root);
 //            Thread.sleep(100000);
             return getIntermediateList(root,new ArrayList<>(), new HashMap<>());
         }
         catch(Exception e) {
-            System.out.println("error occured at JsonToEbcdic-->copybookToIntermedaite()" + e.getMessage());
+            //System.out.println("error occured at JsonToEbcdic-->copybookToIntermedaite()" + e.getMessage());
             return null;  
         }
     }
    
    
     public static void printObjectDetails(Object obj) {
-        System.out.println("-----------------------------------------------------------");
+        //System.out.println("-----------------------------------------------------------");
         if (obj instanceof String) { // Direct handling for Strings
-            System.out.println("Instance of String: " + obj);
+            //System.out.println("Instance of String: " + obj);
         } else {
             Class<?> objClass = obj.getClass();
-            System.out.println("Class Name: " + objClass.getName());
+            //System.out.println("Class Name: " + objClass.getName());
             Field[] fields = objClass.getDeclaredFields();
 
             for (Field field : fields) {
                 field.setAccessible(true); // if fields are private
-                try {
-                    System.out.println(field.getName() + ": " + field.get(obj));
-                } catch (IllegalArgumentException | IllegalAccessException e) {
-                    System.out.println("Error getting field value: " + e.getMessage());
-                }
+//                try {
+//                    //System.out.println(field.getName() + ": " + field.get(obj));
+//                } catch (IllegalArgumentException | IllegalAccessException e) {
+//                    System.out.println("Error getting field value: " + e.getMessage());
+//                }
             }
         }
-        System.out.println("---------------------------------------------------------------");
+        //System.out.println("---------------------------------------------------------------");
     }
 
    
@@ -181,7 +165,7 @@ public class JsonToEbcdic {
                 }
             }
         }
-        System.out.println("fields are : "+ fields);
+        //System.out.println("fields are : "+ fields);
 //        Thread.sleep(10000);
         return fields;
     }
@@ -205,10 +189,10 @@ public class JsonToEbcdic {
        
         return hm;
     }
+    
     /*******************************************
-     * calcualte value for cobol varibles lef-pad numbers with zeros right-pad char
-     * types with spaces pass in default of zero/space for variables non-required
-     * request fields
+     * calcualte value for cobol varibles left-pad numbers with zeros right-pad char
+     * types with spaces pass in default of zero/space for variables non-required request fields
      ********************************************/
    
     public String calculateFieldValue(String fieldName, String fieldValue, int displayLength, int storageLength, int typeId, String pic) {
@@ -322,7 +306,7 @@ public class JsonToEbcdic {
             }
             return fixedOutputEbcdic.toString().getBytes(LATIN_1_CHARSET);
         } catch(Exception ex) {
-            System.out.println("number format exception at JsonToEbcdic"+ex);
+            //System.out.println("number format exception at JsonToEbcdic"+ex);
             return null;
         }
     }
@@ -343,7 +327,7 @@ public class JsonToEbcdic {
             return cbuf.toString();
         }
         catch(CharacterCodingException ex) {
-            System.out.println("character coding exception occur at JsonToEbcdic" + ex);
+            //System.out.println("character coding exception occur at JsonToEbcdic" + ex);
             return "";
         }
     }

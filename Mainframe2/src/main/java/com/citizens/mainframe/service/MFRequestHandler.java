@@ -1,75 +1,54 @@
 package com.citizens.mainframe.service;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
-
 import java.util.List;
+import java.util.Map;
 
-
-
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-
 
 @Component
 public class MFRequestHandler {
-
 	
-
-	public HashMap<String, String> populateMap() {
-
-		HashMap<String, String> cobolConstants = new HashMap<>();
-		cobolConstants.put("SDSTMYM1-EXT-AMT", "3578");
-		cobolConstants.put("SDSTMYM1-EXT-AMT-LIT", "ACAI");
-		cobolConstants.put("ACAI-SERVICE-NAME", "ACCOUNT CLOSING BALANCE INQUIRE");
-
-		cobolConstants.put("ACAI-SESSION-ID", "UNKNOWN");
-
-		cobolConstants.put("ACAI-SESSION-ARCHIVE", "Y");
-
-		return cobolConstants;
-
-	}
-
+	@Autowired
+	EbcdicToJson e2j;
 	
-
-	public List<String> hexFields(){
-
-		return new ArrayList<String>();
-
-	}
-
+	@Autowired
+	ParseCopybook parseCopybook;
 	
-
-	public byte[] JsonToEbc() {
-
-		HashMap<String, String> cobolConstants = populateMap();
-
-		List<String> hexFields = hexFields();
-
-		String cobolFile = "customer.cpy";
-
+	public String readMessageBody(byte[] edcdic) {
 		
-
-		JsonToEbcdic j2e = new JsonToEbcdic(cobolConstants, hexFields);
-
+		String copybook = "customerRequest.cpy";
 		try {
-
-			byte[] content = j2e.request2mainframe(cobolFile);
-
-			return content;
-
+			List<HashMap<String, String>> copybookAsListOfMap = parseCopybook.getCopybookAsListOfMap(copybook);
+			List<Map<String, String>> copybookAsListOfHashmap = printAndConvertCopybook(copybookAsListOfMap);
+			String messageBodyAsJsonString = e2j.convertToJSON(edcdic, copybookAsListOfHashmap);
+			return messageBodyAsJsonString;
 		} catch (InterruptedException e) {
-
 			// TODO Auto-generated catch block
-
 			e.printStackTrace();
-
 		}
-
-		return null;
-
+		
+		return "";
 	}
+	
+	public List<Map<String, String>> printAndConvertCopybook(List<HashMap<String, String>> copybook) {
+		List<Map<String, String>> copybookToListOfMap = new ArrayList<>();
+		//System.out.println("----------------------------------------------------------------");
+		for (HashMap<String, String> field : copybook) {
+			Map<String, String> tempMap = new HashMap<>();
+
+			//System.out.println("Field:");
+			for (Map.Entry<String, String> entry : field.entrySet()) {
+				tempMap.put(entry.getKey(), entry.getValue());
+				//System.out.println(entry.getKey() + ": " + entry.getValue());
+			}
+			copybookToListOfMap.add(tempMap);
+			//System.out.println();
+		}
+		//System.out.println("--------------------------------------------------------------------------------");
+		return copybookToListOfMap;
+	}
+	
 }
