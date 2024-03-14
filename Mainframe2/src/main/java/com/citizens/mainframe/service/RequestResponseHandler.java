@@ -24,6 +24,10 @@ public class RequestResponseHandler {
 	@Autowired
 	ObjectMapper objectMapper;
 	
+	@Value("${timeDelay}")
+	private String timeout;
+	private int timeDelay =Integer.parseInt(timeout);
+	
 	private String accNumber = "";
 	
 	private final JmsTemplate jmsTemplate;
@@ -73,7 +77,7 @@ public class RequestResponseHandler {
 
 	public void replyAsync(JMSMessage receivedMessage) {
 		try {
-//			Thread.sleep(1000);
+		Thread.sleep(timeDelay);
 			System.out.println("Processing...");
 			System.out.println(Thread.currentThread().getName() + " " + Thread.currentThread().getId());
 			jmsTemplate.send(responseQueue, session -> {
