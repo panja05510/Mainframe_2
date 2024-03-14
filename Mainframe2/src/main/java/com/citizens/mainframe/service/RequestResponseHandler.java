@@ -29,10 +29,7 @@ public class RequestResponseHandler {
 	private final JmsTemplate jmsTemplate;
 	public static final String EBCDIC_CHARSET = String.format("CP%s", "500");
 	public static final String LATIN_1_CHARSET = "ISO-8859-1";
-	@Value("${requestQueue}")
-	private final String requestQueue;
-	@Value("${responseQueue}")
-	private final String responseQueue;
+	
 	private final ThreadPoolTaskExecutor taskExecutor;
 	private  final String errAccount = "\"9999999999999\"";
 
@@ -47,7 +44,7 @@ public class RequestResponseHandler {
 	/***********************************************
 	 * listen to the request queue if request message is not null, read the request
 	 *************************************************/
-	@JmsListener(destination = requestQueue)
+	@JmsListener(destination = "${requestQueue}")
 	public void receiveMessage(JMSMessage receivedJMSMessage) {
 		taskExecutor.execute(() -> {
 //			System.out.println("thread id --> "+Thread.currentThread());;
@@ -77,7 +74,7 @@ public class RequestResponseHandler {
 //			Thread.sleep(1000);
 			System.out.println("Processing...");
 			System.out.println(Thread.currentThread().getName() + " " + Thread.currentThread().getId());
-			jmsTemplate.send(responseQueue, session -> {
+			jmsTemplate.send("${responseQueue}", session -> {
 				BytesMessage message = session.createBytesMessage();
 				try {
 					message.writeBytes(processEbcdic());
