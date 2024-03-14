@@ -3,6 +3,7 @@ package com.citizens.mainframe.service;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -28,8 +29,10 @@ public class RequestResponseHandler {
 	private final JmsTemplate jmsTemplate;
 	public static final String EBCDIC_CHARSET = String.format("CP%s", "500");
 	public static final String LATIN_1_CHARSET = "ISO-8859-1";
-	private final String requestQueue = "DEV.QUEUE.1";
-	private final String responseQueue = "DEV.QUEUE.2";
+	@Value("${requestQueue}")
+	private final String requestQueue;
+	@Value("${responseQueue}")
+	private final String responseQueue;
 	private final ThreadPoolTaskExecutor taskExecutor;
 	private  final String errAccount = "\"9999999999999\"";
 
