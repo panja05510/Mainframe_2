@@ -36,7 +36,9 @@ public class RequestResponseHandler {
 	@Value("${responseQueue}")
 	private  String responseQueue;
 	private final ThreadPoolTaskExecutor taskExecutor;
-	private  final String errAccount = "\"9999999999999\"";
+//	private  final String errAccount = "\"9999999999999\"";
+	@Value("${errorAccountNumber}")
+	private String errAccount;
 
 	@Autowired
 	private MFRequestHandler reader;
