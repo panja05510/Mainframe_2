@@ -1,36 +1,37 @@
 package com.citizens.mainframe.model;
 
+import java.util.Map;
+
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "accounts")
 public class Accounts {
-
-	public Accounts(String serviceName, String response, String error, Integer delay, String id) {
-		super();
-		this.serviceName = serviceName;
-		this.response = response;
-		this.error = error;
-		this.delay = delay;
-		this.id=id;
-	}
-	
-	
-	
-
-
 	private String id;
 	private String serviceName;
-	private String response;
-	private String error;
 	private Integer delay;
 
-	
-	
-	@Override
-	public String toString() {
-		return "Accounts [id=" + id + ", serviceName=" + serviceName + ", response=" + response + ", error=" + error
-				+ ", delay=" + delay + "]";
+	public Accounts(String id, String serviceName, Integer delay, Map<Integer, String> response) {
+		super();
+		this.id = id;
+		this.serviceName = serviceName;
+		this.delay = delay;
+		this.response = response;
 	}
+
+	public Integer getDelay() {
+		return delay;
+	}
+
+	public void setDelay(Integer delay) {
+		this.delay = delay;
+	}
+
+	private Map<Integer, String> response;
+	/*
+	 * "90982": "some error fixed lenght response 01",
+	 * "87348":"some error fixed lenght resonse 02 "
+	 */
 
 	public String getId() {
 		return id;
@@ -48,28 +49,20 @@ public class Accounts {
 		this.serviceName = serviceName;
 	}
 
-	public String getResponse() {
+	public Map<Integer, String> getResponse() {
 		return response;
 	}
 
-	public void setResponse(String response) {
+	public void setResponse(Map<Integer, String> response) {
 		this.response = response;
 	}
 
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
-	}
-
-	public Integer getDelay() {
-		return delay;
-	}
-
-	public void setDelay(Integer delay) {
-		this.delay = delay;
+	
+	
+	@Override
+	public String toString() {
+		return "Accounts [id=" + id + ", serviceName=" + serviceName + ", delay=" + delay + ", response=" + response
+				+ "]";
 	}
 
 }

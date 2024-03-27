@@ -32,4 +32,12 @@ public class Temp {
         System.out.println(message); // Print the message
         return new ResponseEntity<>(findAll, HttpStatus.OK);
     }
+    
+    @PostMapping("/acc")
+    public ResponseEntity<?> addAccount(@RequestBody Accounts acc){
+    	System.out.println("post mapping hit...");
+    	System.out.println("request we get : "+ acc);
+    	Accounts savedAcc = accountRepo.save(acc);
+    	return ResponseEntity.ok(savedAcc);
+    }
 }

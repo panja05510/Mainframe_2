@@ -23,9 +23,5 @@ public class AsyncConfig {
 		executor.setCorePoolSize(10); // Set to your desired core pool size
 		return executor;
 	}
-    public class CachingConfig {
-    }
-    
-    
     
 }

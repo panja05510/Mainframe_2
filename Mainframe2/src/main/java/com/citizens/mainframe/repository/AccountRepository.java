@@ -4,8 +4,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.citizens.mainframe.model.Accounts;
 
-public interface AccountRepository extends MongoRepository<Accounts,Integer>{
+public interface AccountRepository extends MongoRepository<Accounts,String>{
 
-	
-	
 }
