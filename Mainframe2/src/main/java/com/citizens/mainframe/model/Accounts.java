@@ -5,23 +5,39 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "accounts")
 public class Accounts {
 
-	public Accounts(String serviceName, String response, String error, Integer delay) {
+	public Accounts(String serviceName, String response, String error, Integer delay, String id) {
 		super();
 		this.serviceName = serviceName;
 		this.response = response;
 		this.error = error;
 		this.delay = delay;
+		this.id=id;
 	}
+	
+	
+	
 
+
+	private String id;
 	private String serviceName;
 	private String response;
 	private String error;
 	private Integer delay;
 
+	
+	
 	@Override
 	public String toString() {
-		return "Accounts [serviceName=" + serviceName + ", response=" + response + ", error=" + error + ", delay="
-				+ delay + "]";
+		return "Accounts [id=" + id + ", serviceName=" + serviceName + ", response=" + response + ", error=" + error
+				+ ", delay=" + delay + "]";
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getServiceName() {
