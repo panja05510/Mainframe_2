@@ -19,11 +19,11 @@
 	</properties>
 	<dependencies>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -40,21 +40,22 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+
 			<groupId>org.slf4j</groupId>
+
 			<artifactId>slf4j-api</artifactId>
-		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+
 		</dependency>
 
 
 		<dependency>
+
 			<groupId>ch.qos.logback</groupId>
+
 			<artifactId>logback-classic</artifactId>
+
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -90,6 +91,8 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
+
+			<version>2.10.1</version>
 		</dependency>
 
 		<dependency>
@@ -108,16 +111,7 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.10.2</version>
-			<scope>test</scope>
-		</dependency>
-
-
+		
 	</dependencies>
 
 	<build>
@@ -136,6 +130,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 
 </project>
